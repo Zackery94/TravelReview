@@ -1,0 +1,9 @@
+<%= simple_form_for ([@location, @location.reviews.build]) do |f| %>
+	<%= f.input :rating %>
+	<%= f.input :comment %>
+	<%= f.button :submit %>
+
+
+<% end %>
+
+

@@ -1,0 +1,80 @@
+<div class= "row">
+
+	<div class="col-md-4">
+
+	<%= image_tag @location.image.url(:medium), class: "location-show" %>
+
+	</div>
+
+
+<div class= "col-md-8">
+<h2><%= @location.place %></h2>
+<h4>Region:<%= @location.category.names %></h4>
+</div>
+
+</div>
+
+<div class="row">
+<div class= "col-md-4">
+
+
+
+
+<div>
+	
+	<h2>Star Rating and comment:</h2>
+<%= form_for([@location, Review2.new]) do |f| %>
+
+<h3><%= f.label :stars %>
+ <% stars = [1, 2, 3, 4, 5] %>
+ <% stars.each do |star| %>
+<%= f.radio_button :stars, star %> <%= star %>
+ <% end %>
+</h3></br>
+ <%= f.text_area :content, :rows => 4, :cols => 40 %>
+<div class="actions">
+<%= f.submit "Post a Comment"%>
+</div>
+<% end %>
+<% if @location.review2s.empty? %>
+<h3>You are the first to comment </h3>
+<% else %>
+<h2>Reviews of <%= @location.place %> from other users</h2>
+<% @location.review2s.reverse.each do |review2| %>
+<p><%= review2.content %>
+Posted <%= time_ago_in_words(review2.created_at) %> ago by
+<%=review2.user.email %></p>
+<% end %>
+<h3>Average Rating of <%= @location.place %> </h3>
+<p>		
+		<%= number_with_precision( @location.average_stars, precision: 0) %>
+	</p>
+
+<% end %>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+<%= link_to "Back" , root_path %>
+
+
+
+<% if user_signed_in?  %>
+
+	<% if @location.user_id == current_user.id %>
+	<%= link_to "Edit" , edit_location_path(@location) %>
+	<%= link_to "Delete" , location_path(@location), method: :delete, data: { confirm: "Are you sure"} %> 
+
+<% end %>
+
+	<div class='map' align="right">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d21816783.808854543!2d4.133156854173181!3d48.126020840867845!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46ed8886cfadda85%3A0x72ef99e6b3fcf079!2sEurope!5e0!3m2!1sen!2sie!4v1481719662435" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+</div>
+
+
+<% end %>

@@ -1,0 +1,9 @@
+<%= simple_form_for @location, url: locations_path do |f| %>
+
+	<%= select_tag(:category_id, options_for_select(@categories), :prompt => "Select a region") %>
+
+	<%= f.input :image, as: :file %>
+	<%= f.input :place, label:"Destination" %>
+	<%= f.button :submit %>
+
+<%	end %>

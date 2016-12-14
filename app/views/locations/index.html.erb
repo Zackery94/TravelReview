@@ -1,0 +1,22 @@
+<h1 class= "current-category"><%= params[:category] %></h1>
+
+<%= link_to "Add Location", new_location_path %>
+
+<% if @locations.count == 0 %>
+<h1>We are afraid that nobody has reviewd a trip in this region</h1>
+<% else %>
+
+<div class= "row">
+
+<% @locations.each do |location| %>
+	<div class="col-md-3">
+		<a href= "/locations/<%= location.id %>">
+		<%= image_tag location.image.url(:medium) , class: "location"%>
+		</a>
+		</div>
+
+
+<% end %>
+</div>
+
+<% end %>

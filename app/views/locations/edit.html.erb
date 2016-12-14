@@ -1,0 +1,15 @@
+
+<h1>Edit Location</h1>
+
+<%= simple_form_for @location, url: locations_path do |f| %>
+ 
+
+	<%= f.select :category_id, @categories %>
+	<%= f.input :image, as: :file %>
+
+
+
+	<%= f.input :place, label:"Destination" %>
+	<%= f.button :submit %>
+
+<%	end %>
